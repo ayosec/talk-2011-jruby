@@ -1,0 +1,148 @@
+
+.center-content {
+  margin: auto;
+  text-align: center;
+}
+
+body {
+  font-size: 15pt;
+  background: #eee;
+
+  .slide {
+    background: #eee !important;
+
+    &.big-title {
+      h2 { font-size: 400%; }
+      h3, h2 { text-align: center; }
+    }
+
+    .img img {
+      max-height: 600px;
+      max-width: 600px;
+    }
+
+    .big.img {
+      @extend .center-content;
+      margin-top: 2em;
+
+      img {
+        box-shadow: 3px 3px 1px #888;
+      }
+    }
+
+    h2 {
+      font-family: 'Josefin Sans', cursive;
+    }
+
+    p, li {
+      font-family: 'Quattrocento Sans', sans-serif;
+    }
+
+    tt {
+      background: rgba(255,255,255,0.5);
+    }
+
+    .pass-yao {
+      img {
+        position: absolute;
+        margin-top: 2em;
+        opacity: 0;
+      }
+
+      &.deck-before {
+        .second img { opacity: 1; }
+      }
+
+      &.deck-previous, &.deck-current { .first img { opacity: 1; } }
+    }
+
+    .inline-boxs {
+      div.slide {
+        display: inline-block;
+        &.deck-after, &.deck-next {
+          -moz-transform: translate(1000%, 0pt) !important;
+        }
+      }
+    }
+
+    .right-side {
+      float: right;
+      margin-left: 2em;
+    }
+
+    .big-quote {
+      text-align: center;
+      font-size: 200%;
+      margin: 2em auto;
+      color: green;
+      background: transparent;
+      max-width: 20em;
+
+      b {
+        font-size: 120%;
+      }
+    }
+
+    div.image {
+      margin-top: 2em;
+      text-align: center;
+    }
+
+    ul {
+      li.slide {
+        background-color: transparent;
+      }
+
+      li.invalid {
+        margin-left: 2em;
+        color: red;
+      }
+    }
+
+    a {
+      border-bottom: 1px dotted;
+
+      &:before {
+        content: "↖";
+        font-size: 50%;
+        vertical-align: top;
+      }
+    }
+  }
+
+  .gc-example {
+    .second-status { display: none; }
+
+    .img {
+      float: left;
+      margin-top: 0 !important;
+      padding-right: 2em;
+    }
+
+    pre { background: transparent !important }
+
+    &.deck-child-current {
+      .first-status { display: none; }
+      .second-status { display: block !important; }
+    }
+  }
+
+  pre.smaller {
+    font-size: 70%;
+  }
+
+  div.only-on-current {
+    display: none;
+
+    &.deck-current {
+      display: block;
+    }
+  }
+
+  .multi-list {
+    & > ul > li {
+      padding-top: 2em;
+    }
+  }
+
+}

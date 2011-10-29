@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="465.6048"
+   height="253.77573"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="Nuevo documento 1">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2"
+     inkscape:cx="298.40892"
+     inkscape:cy="85.377713"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1680"
+     inkscape:window-height="995"
+     inkscape:window-x="-1"
+     inkscape:window-y="26"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-67.197601,-775.4743)">
+    <rect
+       style="fill:#550000;stroke:#000000;stroke-width:0.91857946;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2985"
+       width="464.68622"
+       height="252.85715"
+       x="67.656891"
+       y="775.93359" />
+    <rect
+       style="fill:#ff2a2a;fill-opacity:1;stroke:none"
+       id="rect2997"
+       width="197.52103"
+       height="197.52103"
+       x="76.490845"
+       y="785.85162"
+       ry="98.760513" />
+    <rect
+       style="fill:#5a52c6;fill-opacity:1;stroke:none"
+       id="rect2997-1"
+       width="243.97552"
+       height="243.97552"
+       x="276.78851"
+       y="777.37445"
+       ry="121.98776" />
+    <text
+       xml:space="preserve"
+       style="font-size:47.69037247px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="113.72893"
+       y="897.76898"
+       id="text3793"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3795"
+         x="113.72893"
+         y="897.76898">Ruby</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#f2f2f2;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="359.37198"
+       y="909.93835"
+       id="text3797"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3799"
+         x="359.37198"
+         y="909.93835">Java</tspan></text>
+    <g
+       id="g3826"
+       transform="matrix(1.3874483,0,0,1.3874483,-114.15332,-420.34454)">
+      <text
+         sodipodi:linespacing="125%"
+         id="text3801"
+         y="913.39734"
+         x="245.49805"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="913.39734"
+           x="245.49805"
+           id="tspan3803"
+           sodipodi:role="line">JRuby</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3801-7"
+         y="911.39734"
+         x="242.49805"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="911.39734"
+           x="242.49805"
+           id="tspan3803-0"
+           sodipodi:role="line">JRuby</tspan></text>
+    </g>
+  </g>
+</svg>

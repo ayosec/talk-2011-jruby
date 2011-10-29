@@ -1,0 +1,14 @@
+digraph gc1 {
+  RootSet -> a
+  RootSet -> b
+
+  a -> "'bar'"
+  "[]" -> "'foo'"
+  b -> 11
+
+  RootSet [shape=box, style=filled, color=yellow]
+  a [shape=diamond]
+  b [shape=diamond]
+  "[]" [color=red, style=filled]
+  "'foo'" [color=red, style=filled]
+}

@@ -1,0 +1,150 @@
+/* line 2, ../source/styles/base.scss */
+.center-content, body .slide .big.img {
+  margin: auto;
+  text-align: center;
+}
+
+/* line 7, ../source/styles/base.scss */
+body {
+  font-size: 15pt;
+  background: #eee;
+}
+/* line 11, ../source/styles/base.scss */
+body .slide {
+  background: #eee !important;
+}
+/* line 15, ../source/styles/base.scss */
+body .slide.big-title h2 {
+  font-size: 400%;
+}
+/* line 16, ../source/styles/base.scss */
+body .slide.big-title h3, body .slide.big-title h2 {
+  text-align: center;
+}
+/* line 19, ../source/styles/base.scss */
+body .slide .img img {
+  max-height: 600px;
+  max-width: 600px;
+}
+/* line 24, ../source/styles/base.scss */
+body .slide .big.img {
+  margin-top: 2em;
+}
+/* line 28, ../source/styles/base.scss */
+body .slide .big.img img {
+  box-shadow: 3px 3px 1px #888;
+}
+/* line 33, ../source/styles/base.scss */
+body .slide h2 {
+  font-family: 'Josefin Sans', cursive;
+}
+/* line 37, ../source/styles/base.scss */
+body .slide p, body .slide li {
+  font-family: 'Quattrocento Sans', sans-serif;
+}
+/* line 41, ../source/styles/base.scss */
+body .slide tt {
+  background: rgba(255, 255, 255, 0.5);
+}
+/* line 46, ../source/styles/base.scss */
+body .slide .pass-yao img {
+  position: absolute;
+  margin-top: 2em;
+  opacity: 0;
+}
+/* line 53, ../source/styles/base.scss */
+body .slide .pass-yao.deck-before .second img {
+  opacity: 1;
+}
+/* line 56, ../source/styles/base.scss */
+body .slide .pass-yao.deck-previous .first img, body .slide .pass-yao.deck-current .first img {
+  opacity: 1;
+}
+/* line 60, ../source/styles/base.scss */
+body .slide .inline-boxs div.slide {
+  display: inline-block;
+}
+/* line 62, ../source/styles/base.scss */
+body .slide .inline-boxs div.slide.deck-after, body .slide .inline-boxs div.slide.deck-next {
+  -moz-transform: translate(1000%, 0pt) !important;
+}
+/* line 68, ../source/styles/base.scss */
+body .slide .right-side {
+  float: right;
+  margin-left: 2em;
+}
+/* line 73, ../source/styles/base.scss */
+body .slide .big-quote {
+  text-align: center;
+  font-size: 200%;
+  margin: 2em auto;
+  color: green;
+  background: transparent;
+  max-width: 20em;
+}
+/* line 81, ../source/styles/base.scss */
+body .slide .big-quote b {
+  font-size: 120%;
+}
+/* line 86, ../source/styles/base.scss */
+body .slide div.image {
+  margin-top: 2em;
+  text-align: center;
+}
+/* line 92, ../source/styles/base.scss */
+body .slide ul li.slide {
+  background-color: transparent;
+}
+/* line 96, ../source/styles/base.scss */
+body .slide ul li.invalid {
+  margin-left: 2em;
+  color: red;
+}
+/* line 102, ../source/styles/base.scss */
+body .slide a {
+  border-bottom: 1px dotted;
+}
+/* line 105, ../source/styles/base.scss */
+body .slide a:before {
+  content: "↖";
+  font-size: 50%;
+  vertical-align: top;
+}
+/* line 114, ../source/styles/base.scss */
+body .gc-example .second-status {
+  display: none;
+}
+/* line 116, ../source/styles/base.scss */
+body .gc-example .img {
+  float: left;
+  margin-top: 0 !important;
+  padding-right: 2em;
+}
+/* line 122, ../source/styles/base.scss */
+body .gc-example pre {
+  background: transparent !important;
+}
+/* line 125, ../source/styles/base.scss */
+body .gc-example.deck-child-current .first-status {
+  display: none;
+}
+/* line 126, ../source/styles/base.scss */
+body .gc-example.deck-child-current .second-status {
+  display: block !important;
+}
+/* line 130, ../source/styles/base.scss */
+body pre.smaller {
+  font-size: 70%;
+}
+/* line 134, ../source/styles/base.scss */
+body div.only-on-current {
+  display: none;
+}
+/* line 137, ../source/styles/base.scss */
+body div.only-on-current.deck-current {
+  display: block;
+}
+/* line 143, ../source/styles/base.scss */
+body .multi-list > ul > li {
+  padding-top: 2em;
+}

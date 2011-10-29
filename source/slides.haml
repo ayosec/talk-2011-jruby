@@ -1,0 +1,675 @@
+!!! 5
+
+%html
+  %head
+    %link{ :rel => "stylesheet", :href => "../vendor/deck.js/themes/style/swiss.css" }
+    %link{ :rel => "stylesheet", :href => "../vendor/deck.js/themes/transition/horizontal-slide.css" }
+    %link{ :rel => "stylesheet", :href => "base.css" }
+    %link{ :rel => "stylesheet", :href => "http://fonts.googleapis.com/css?family=Josefin+Sans" }
+    %link{ :rel => "stylesheet", :href => "http://fonts.googleapis.com/css?family=Quattrocento+Sans" }
+
+  %body
+    .deck-container
+      .slide.big-title
+        %h2 JRuby
+
+        %h3 Una introducción muy breve
+
+        .big.img jruby.png
+
+      .slide
+        %h2 Qué es JRuby
+
+        Implementación de Ruby en Java
+
+        %ul
+          %li.slide Ejecutar Ruby sobre la JVM
+          %li.slide Usar Java desde Ruby
+          %li.slide Usar Ruby desde Java
+
+        .big-quote.slide
+          JRuby es un universo por sí solo
+
+      .slide
+        %h2 No sólo una mezcla
+
+        %i El todo es mayor que la suma de las partes
+
+        .big.img components.svg
+
+
+      .slide
+        %h2 Historia
+
+        %ul
+          %li 2001 ⇝ empezado por Arne Petersen
+          %li 2006 ⇝ Thomas Enebo y Charles Nutter en <u>Sun Microsystems</u>
+          %li 2007 ⇝ Ola Bini en <u>ThoughtWorks</u>
+          %li 2009 ⇝ Charles Nutter, Thomas Enebo y Nick Sieger en <u>Engine Yard</u>
+
+
+      .slide
+        %h2 Por qué JRuby
+
+        %ul
+          %li.slide Java
+          %li.slide JVM
+
+      .slide
+        %h2 Java
+
+        %h3 Cultura de rechazo
+
+        .big.img haters.jpeg
+
+      .slide
+        %h2 Qué aporta Java a Ruby
+
+        %ul
+          %li.slide Librerías y herramientas
+          %li.slide Velocidad
+          %li.slide Gestión de memoria
+
+      .slide
+        %h2 JVM
+
+        %h3 Quizá, la mejor VM a día de hoy
+
+        .slide
+          .autolink http://blog.heroku.com/archives/2011/08/25/java/
+
+          %ul
+            %li The JVM is one of the best runtime VMs in the world, offering fast performance and a reliable memory footprint over time.
+
+      .slide
+        %h2 Algunos puntos sobre JVM
+        %ul
+          %li.slide Gestión de memoria - GC
+          %li.slide JIT
+          %li.slide Hilos
+          %li.slide Tunning
+
+      .slide
+        %h2 Gestión de memoria: Tipos
+
+        %ul
+          %li.slide Manualmente
+          %li.slide Por referencias (Python)
+          %li.slide GC (Ruby)
+
+      .slide
+        %h2 Manualmente
+
+        %ul
+          %li
+            %tt malloc
+            y
+            %tt free
+
+      .slide
+        %h2 Por referencias
+
+        %ul
+          %li.slide Cada objeto tiene un contador (inicialmente 1)
+          %li.slide Incrementa y decrementa según se use el objeto
+          %li.slide Cuando llega a cero se borra el objeto
+
+      .slide
+        %h2 Referencias: Ejemplo
+
+        %b Python
+
+        %pre.slide a = SomeClass()       # R = 1
+        %pre.slide b = [a]               # R = 2
+        .slide.only-on-current
+          .img python-example-refs.png
+        %pre.slide a = None              # R = 1
+        .slide.only-on-current
+          .img python-example-refs-2.png
+        %pre.slide b.pop()               # R = 0 ⇒ Se borra
+
+
+      .slide
+        %h2 Referencias: Ventajas sobre GC
+
+        %ul
+          %li.slide Objetos borrados inmediatamente
+          %li.slide Sin ciclos de búsqueda de basura
+
+      .slide
+        %h2 Referencias: Desventajas sobre GC
+
+        %ul
+          %li.slide Complejidad alta (en extensiones C)
+          %li.slide Referencias cruzadas
+          
+      .slide
+        %h2 Referencias cruzadas
+
+        %pre
+          :erb
+            a = []
+            b = [a]
+            a.append(b)
+            del a, b
+
+        %ul
+          %li.slide Las dos listas quedan inaccesibles, con su contador a 1
+          %li.slide Hay herramientas de evitar la fuga de memoria
+          %li.slide <tt>weakref</tt> y <tt>gc</tt> en Python
+
+        .big.img python-self-refs.png
+
+      .slide
+        %h2 Garbage Collector
+
+        %h3 Gestión <i>automágica</i> de objetos
+
+        %ul
+          %li.slide <i>rootset</i> con los objetos base del programa
+          %li.slide Cada objeto indica los objetos que contiene
+          %li.slide El GC busca todos los objetos que son alcanzables desde el <i>rootset</i>
+          %li.slide Los que no se vean se borran
+
+      .slide.gc-example
+        %h2 GC: Ejemplo
+
+        .big.img.first-status gc-1.png
+        .big.img.second-status gc-2.png
+
+        <i>RootSet</i>: variables locales
+
+        %pre a = ["foo"]<br>b = 11<br>GC.start
+        %pre.slide a = "bar" <br>GC.start
+
+      .slide
+        %h2 GC: Ventajas
+
+        %ul
+          %li.slide Poca complejidad para usarlo
+          %li.slide No hay fugas de memoria...
+          %li.slide ... pero sí <i>fugas lógicas</i>
+
+
+      .slide
+        %h2 GC: Desventajas
+
+        %ul
+          %li.slide Tiempo CPU en buscar basura
+          %li.slide Acumulación de objetos sin uso
+
+      .slide
+        %h2 Fugas lógicas
+
+        %ul
+          %li.slide Objetos referenciados accidentalmente
+          %li.slide La memoria ocupada no se libera, aunque no se use
+
+        %pre.slide
+          :erb
+            def create_layout
+              x = '...'
+              ...
+              window.bind 'close' do
+                # x está visible, aunque no se use
+                exit
+              end
+            end
+
+
+      .slide
+        %h2 Fugas lógicas: Ejemplo en Ruby
+
+        <script src="https://gist.github.com/1294176.js?file=test_strings.rb"></script>
+
+      .slide
+        %h2 Fugas lógicas: Ejemplo en Ruby: Resultado
+
+        <script src="https://gist.github.com/1294176.js?file=gistfile1.txt"></script>
+
+      .slide
+        %h2 GC en la JVM
+
+        %ul
+          %li.slide
+            Diferentes tipos de GC, según necesidades
+
+            %ul
+              %li Fast Allocation
+              %li Serial Collector
+              %li Parallel Collector
+              %li Parallel Compacting Collector
+              %li Concurrent Mark-Sweep (CMS) Collector
+
+            %p
+              .autolink http://java.sun.com/j2se/reference/whitepapers/memorymanagement_whitepaper.pdf
+
+          %li.slide
+            Ruby
+
+            %ul
+              %li
+                .autolink http://engineering.twitter.com/2011/03/building-faster-ruby-garbage-collector.html
+              %li
+                .autolink http://jabberwocky.eu/2010/09/03/ruby-garbage-collection/
+
+      .slide
+        %h2 JIT
+
+        %ul
+          %li.slide Compilador <i>Just In Time</i>
+          %li.slide Genera código máquina según de patrones de <i>bytecode</i>
+
+        .slide
+          .autolink https://gist.github.com/1292948
+
+      .slide
+        %h2 Hilos (<i>thredas</i>)
+
+        %ul
+          %li.slide MRI 1.8 <i>green threads</i>
+          %li.slide MRI 1.9 <i>native threads</i>, pero con GIL
+          %li.slide JVM <i>native threads</i> concurrentes
+
+      .slide
+        %h2 Ventajas de hilos concurrente
+
+        %ul
+          %li.slide Se aprovecha <i>multicores</i>
+          %li.slide Concurrencia más ligera que múltiples procesos
+          %li.slide Bloqueo de I/O gestionada por el núcleo
+
+      .slide
+        %h2 Impacto de hilos en velocidad
+
+        %p
+          .autolink https://gist.github.com/1284522
+
+
+      .slide
+        %h2 Tuning
+
+        .big.img tunning.jpeg
+
+      .slide.multi-list
+        %h2 JVM Configurable
+
+        %ul
+          %li.slide ∞ opciones en línea de órdenes (<i>no runtime</i>)
+          %li.slide
+            %b Gestión de memoria
+
+            %ul
+              %li <tt>-Xms</tt> tamaño inicial del <i>heap</i>
+              %li <tt>-Xmx</tt> tamaño máximo del <i>heap</i>
+              %li <tt>-Xss</tt> tamaño de la pila por hilo (llamdas recursivas, etc)
+
+          %li.slide
+            %b GC
+
+            %ul
+              %li
+                %tt -XX:+UseConcMarkSweepGC,
+                %tt -XX:+UseSerialGC,
+                %tt -XX:+UseParNewGC
+                selecciona un tipo de GC
+              %li
+                %tt -XX:GCTimeRatio=2
+                %tt -XX:ParallelGCThreads=8
+                %tt -XX:MaxGCPauseMillis=2000
+                %tt -XX:+DisableExplicitGC
+              %li
+                %tt -XX:+PrintGCDetails
+                %tt -XX:+PrintGCTimeStamps 
+
+      .slide.multi-list
+        %h2 JVM Configurable (2)
+
+        %ul
+
+          %li.slide
+            %b JIT
+
+            %ul
+              %li
+                %tt -XX:CompileThreshold=10000
+              %li
+                %tt -XX:AllocatePrefetchLines=1
+
+          %li.slide
+            %b Depuración
+
+            %ul
+              %li
+                %tt= '-XX:OnError="cmd args"'
+              %li
+                %tt= '-XX:OnOutOfMemoryError="cmd args"'
+              %li
+                %tt -XX:HeapDumpPath=filename.hprof
+              %li
+                %tt -XX:-PrintClassHistogram
+              %li
+                %tt -XX:-PrintCompilation
+              %li
+                %tt -XX:-PrintClassHistogram
+
+      - #.................................................#
+
+
+      .slide
+        %h2 Compatibilidad con MRI
+
+        %ul
+          %li.slide Implementación fiel a 1.8 y 1.9
+          %li.slide
+            %tt $ jruby script.rb
+            usa 1.8
+          %li.slide
+            %tt $ jruby --1.9 script.rb
+            usa 1.9
+
+      .slide
+        %h2 MRI-like
+
+        %li.slide
+          %b Ventaja
+
+          %ul
+            %li Casi todo funciona <i>out-the-box</i>
+
+
+        %li.slide
+          %b Desventajas
+
+          %ul
+            %li
+              Arrastra limitaciones propias de MRI
+              %table
+                %tr
+                  %td Rubinius
+                  %td ☺
+                  %td Ruby
+                  %td ♥ ♥ ♥
+                %tr
+                  %td JRuby
+                  %td ☺
+                  %td Java
+                  %td ♥ ♥
+                %tr
+                  %td MRI
+                  %td ☹
+                  %td C
+                  %td ☢
+
+      .slide
+        %h2 Extensiones en C
+
+        %ul
+          %li.slide
+            FFI integrado
+            %p
+              .autolink https://github.com/reynhout/callme/tree/master/FFI_lib
+          %li.slide
+            Emulación API MRI
+            %ul
+              %li
+                .autolink http://blog.headius.com/2010/07/what-jruby-c-extension-support-means-to.html
+              %li Pesada. Conviene evitarla.
+
+      .slide
+        %h2 Extensiones en C - Falta de API
+
+        .autolink https://twitter.com/#!/headius/statuses/111557192712339457
+
+        .big.img mri-not-api.png
+
+      .slide
+        %h2 Extensiones en C - Falta de API (2)
+
+        %p
+          JRuby/Rubinius buscan una API común con MRI
+
+        %p
+          .autolink http://twitter.theinfo.org/118968409890365441
+
+        .big.img common-api.png
+
+      .slide
+        %h2 Uso de librerías en Java
+
+        %ul
+          %li Paquetes JARs
+          %li
+            %tt java_import
+            y derivados
+
+      .slide
+        %h2 JAR
+
+        %ul
+          %li.slide Paquete comprimido (ZIP) con ficheros compilados (<tt>Foo.class</tt>) y recursos
+          %li.slide Algo similar a las gemas en Ruby
+          %li.slide
+            Clases accesibles con
+            %tt require "path/to/file.jar"
+          %li.slide
+            Ejemplo para usar Jython:
+            .autolink https://gist.github.com/1285653
+
+      .slide
+        %h2 Acceso a las clases
+
+        %ul
+          %li.slide
+            %tt require 'java'
+            necesario
+          %li.slide
+            %pre java_import "org.python.core.PyString"<br>obj = PyString.new
+            %i equivale a
+            %pre obj = Java::org.python.core.PyString.new
+          %li.slide
+            %tt include_package "org.python.core"
+            hace accesible todas las clases (via <tt>const_missing</tt>)
+
+            %pre
+              :erb
+                module Python::Core
+                  include_package "org.python.core"
+                  # ...
+                end
+
+                obj = Python::Core::PyString.new
+
+      .slide
+        %h2 Datos Java ⇔ Ruby
+        %ul
+          %li.slide Conversión de tipos (<tt>RubyNumeric</tt> a <tt>Integer</tt>, <tt>RubyString</tt> a <tt>String</tt>, etc)
+          %li.slide Bloques como clases anónimas. Interfaces inferidas.
+
+      .slide
+        %h2 Mirah
+
+        %ul
+          %li.slide 
+            %i Rubí
+            en Javanés (zonas de Indonesia, Malasia, etc)
+          %li.slide Sintaxis de Ruby
+          %li.slide Genera <i>bytecode</i> de Java
+          %li.slide Ningún añadido sobre el <i>runtime</i> Java
+
+
+      .slide
+        %h2 Mirah: Código
+        <script src="https://gist.github.com/1291717.js?file=SomeMath.mirah"></script>
+
+      .slide
+        %h2 Mirah: Uso
+        <script src="https://gist.github.com/1291717.js?file=gistfile1.txt"></script>
+
+      .slide
+        %h2 Mirah: Comparación código Mirah - Java
+        .autolink https://gist.github.com/1291717#file_some_math.java
+
+      .slide
+        %h2 Mirah: Fibonacci
+        .autolink https://gist.github.com/1291791
+
+      .slide
+        %h2 warbler
+
+        .autolink http://caldersphere.rubyforge.org/warbler/
+
+        %p Warbler is a gem to make a Java jar or war file out of any Ruby, Rails, Merb, or Rack application. Warbler provides a minimal, flexible, Ruby-like way to bundle up all of your application files for deployment to a Java environment.
+
+        %ul
+          %li Crea <tt>.war</tt>
+          %li Paquetes ejecutables (<tt>java -jar foo.war</tt>)
+          %li Precompila <tt>jrubyc</tt> (mejora tiempo de carga)
+
+      .slide
+        %h2 Análisis
+
+        Herramientas para analizar procesos en marcha
+
+      .slide
+        %h2 VisualVM
+
+        %pre
+          :erb
+            $ apt-cache show visualvm
+            ...
+
+            VisualVM is designed for
+             - Application Developers: Monitor, profile, take thread dumps,
+               browse heap dumps.
+             - System Administrators: Monitor and control Java applications
+               across the entire network.
+             - Java Application Users: Create bug reports containing all the
+               necessary information.
+
+      .slide
+        %h2 VisualVM (1)
+
+        .big.img visualvm-monitor.png
+
+      .slide
+        %h2 VisualVM (2)
+
+        .big.img visualvm-threads.png
+
+      .slide
+        %h2 jconsole
+
+        Similar al VisualVM
+
+        .big.img jconsole-1.png
+
+      .slide
+        %h2 jconsole (2)
+        .big.img jconsole-2.png
+
+      .slide
+        %h2 jconsole (3)
+        .big.img jconsole-3.png
+
+      .slide
+        %h2 jmap
+
+        %ul
+          %li.slide Información sobre la memoria de un proceso
+          %li.slide
+            %tt man jmap
+
+        %pre.slide.smaller
+          :erb
+            $ irb
+            jruby-1.6.4 :001 &gt; $$
+             =&gt; 3862 
+
+            $ jmap -histo 3862
+
+             num     #instances         #bytes  class name
+            ----------------------------------------------
+               1:         28312        4865216  constMethodKlass
+               2:         28312        3858912  methodKlass
+               3:          3442        3003224  constantPoolKlass
+               4:          3442        3001808  instanceKlassKlass
+            ...
+              10:          3648         428464  java.lang.Class
+              11:          8727         279264  java.lang.String
+            ...
+              20:           347          55520  org.jruby.MetaClass
+              21:           322          51520  org.jruby.RubyClass
+            ...
+            2547:             1             16  org.jruby.parser.DefaultRubyParser$216
+            2548:             1             16  org.jruby.parser.DefaultRubyParser$256
+            Total        160785       22213840
+
+
+      .slide
+        %h2 jhat - Java Heap Analysis Tool
+
+        %ul
+          %li.slide
+            Análisis de un volcado de memoria
+
+            %ul
+              %li
+                %tt -XX:+HeapDumpOnOutOfMemoryError
+              %li
+                %tt jmap -dump
+              %li ...
+          %li.slide
+            Servidor web que muestra resultados
+
+            %p
+              .autolink http://www.engineyard.com/blog/2010/monitoring-memory-with-jruby-part-1-jhat-and-visualvm/
+
+            .img jhat.png
+
+
+      .slide
+        %h2 Misc
+
+        %ul
+          %li.slide
+            %tt jdb
+          %li.slide
+            %tt jps
+          %li.slide
+            %tt jstat
+            (GC, compilador JIT, clases, ...)
+          %li.slide
+            %tt jstack
+          %li.slide ...
+
+
+%script{ :src => "../vendor/jquery.js" }
+%script{ :src => "../vendor/deck.js/modernizr.custom.js" }
+%script{ :src => "../vendor/deck.js/core/deck.core.js" }
+%script{ :src => "../vendor/deck.js/extensions/menu/deck.menu.js" }
+%script{ :src => "../vendor/deck.js/extensions/goto/deck.goto.js" }
+%script{ :src => "../vendor/deck.js/extensions/status/deck.status.js" }
+-#%script{ :src => "../vendor/deck.js/extensions/navigation/deck.navigation.js" }
+%script{ :src => "../vendor/deck.js/extensions/hash/deck.hash.js" }
+
+:javascript
+  $(function() {
+
+    /* Auto content */
+    $(".img").each(function() {
+      var node = $(this);
+      var img = $("<img>", {src: "../images/" + node.text()});
+      node.html("").append(img);
+    });
+
+    $(".autolink").each(function() {
+      var node = $(this);
+      node.replaceWith($("<a>", {href: node.text(), text: node.text(), target: "_blank"}));
+    });
+
+    var container = $(".deck-container");
+    container.hide();
+    $.deck('.slide');
+    container.show();
+  });

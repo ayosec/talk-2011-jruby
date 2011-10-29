@@ -1,0 +1,11 @@
+digraph refs {
+
+  a -> "None"
+  b -> y
+  y -> x
+
+  a [shape=diamond]
+  b [shape=diamond]
+  x [label="SomeClass()"]
+  y [label="[]" color=red]
+}

@@ -1,0 +1,12 @@
+digraph refs {
+
+  a -> x
+  y -> x
+  x -> y
+  b -> y
+
+  a [shape=diamond]
+  b [shape=diamond]
+  x [label="[]"]
+  y [label="[]"]
+}
